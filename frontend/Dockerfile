@@ -2,13 +2,13 @@
 
 FROM node:20.11.1
 
-WORKDIR /frontend
+WORKDIR /app
 
-COPY package.json /frontend/package.json
-COPY package-lock.json /frontend/package-lock.json
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
 
 RUN npm install
-COPY . /frontend
+COPY . /app
 
 EXPOSE 3000
 
