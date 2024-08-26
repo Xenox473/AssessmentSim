@@ -1,56 +1,53 @@
-*.gem
-*.rbc
-/.config
-/coverage/
-/InstalledFiles
-/pkg/
-/spec/reports/
-/spec/examples.txt
-/test/tmp/
-/test/version_tmp/
-/tmp/
+####### api #######
+# Ignore bundler config.
+api/.bundle
 
-# Used by dotenv library to load environment variables.
-# .env
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+api/log/*
+api/tmp/*
+!/api/log/.keep
+!/api/tmp/.keep
 
-# Ignore Byebug command history file.
-.byebug_history
+# Ignore pidfiles, but keep the directory.
+api/tmp/pids/*
+!/api/tmp/pids/
+!/api/tmp/pids/.keep
 
-## Specific to RubyMotion:
-.dat*
-.repl_history
-build/
-*.bridgesupport
-build-iPhoneOS/
-build-iPhoneSimulator/
+# Ignore uploaded files in development.
+api/storage/*
+!/api/storage/.keep
+api/tmp/storage/*
+!/api/tmp/storage/
+!/api/tmp/storage/.keep
 
-## Specific to RubyMotion (use of CocoaPods):
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# vendor/Pods/
+# Ignore master key for decrypting credentials and more.
+api/config/master.key
 
-## Documentation cache and generated files:
-/.yardoc/
-/_yardoc/
-/doc/
-/rdoc/
+api/.DS_Store
+api/.byebug_history
 
-## Environment normalization:
-/.bundle/
-/vendor/bundle
-/lib/bundler/man/
 
-# for a library or gem, you might want to ignore these files since the code is
-# intended to run in multiple environments; otherwise, check them in:
-# Gemfile.lock
-# .ruby-version
-# .ruby-gemset
+####### client #######
+# dependencies
+frontend/node_modules
+frontend/.pnp
+frontend/.pnp.js
 
-# unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
-.rvmrc
+# testing
+frontend/coverage
 
-# Used by RuboCop. Remote config files pulled in from inherit_from directive.
-# .rubocop-https?--*
+# production
+frontend/build
+
+# misc
+frontend/.DS_Store
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
