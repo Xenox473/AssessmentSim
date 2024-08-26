@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  namespace :api do
+    namespace :v1 do
+      resources :questions, only: [:index]
+      resources :domains, only: [:index]
+      resources :mappings, only: [:index]
+      resources :answers, only: [:index]
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+      get "/assessment/:answers", to: "assessment#show"
+    end
+  end
 end
