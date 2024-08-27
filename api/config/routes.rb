@@ -6,5 +6,6 @@ Rails.application.routes.draw do
     resources :answers, only: [:index]
 
     post "/assessments", to: "assessments#assess"
+    get "/assessments/details", to: "assessments#details"
   end
 end
