@@ -1,9 +1,18 @@
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import { useState, useEffect } from 'react';
 // import Item from '@mui/material/ListItem';
 import { LinearProgress } from '@mui/material';
 
+import AnswerButton from './AnswerButton';
+
 const AssessmentCard = ({ details }) => {
+  const [ results, setResults ] = useState([]);
+
+  useEffect(() => {
+    console.log(results);
+  }, [results]);
+
   if (details.length === 0) {
     return <p> Loading... </p>;
   }
@@ -13,8 +22,6 @@ const AssessmentCard = ({ details }) => {
   const answers = section.answers;
   const question = questions[0];
 
-  console.log(section);
-
   return (
     <Box flex sx={{ padding: 2, border: '5px dashed grey', width: '40%', fontSize: 15, justifyContent: 'flex-start' }}>
       <Stack spacing={3}>
@@ -22,7 +29,13 @@ const AssessmentCard = ({ details }) => {
         <p style={{ textAlign: 'left' }}> {section.title} </p>
         <p> {question.title} </p>
         {answers.map((answer, index) => (
-          <p key={index}> {answer.title} </p>
+          <AnswerButton 
+            key={index}
+            answer={answer} 
+            questionId={question.question_id}
+            results={results}
+            setResults={setResults}
+          />
         ))}
         <LinearProgress variant="determinate" value={1/8*100} />
       </Stack>
