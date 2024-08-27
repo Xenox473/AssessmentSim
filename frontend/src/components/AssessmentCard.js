@@ -6,10 +6,8 @@ import { Divider } from '@mui/material';
 
 import Questioner from './Questioner';
 
-const AssessmentCard = ({ details }) => {
-  const [ results, setResults ] = useState([]);
-  const [ counter, setCounter ] = useState(0);
-
+const AssessmentCard = ({ details, counter, setCounter, results, setResults }) => {
+  
   useEffect(() => {
     console.log(results);
   }, [results]);
@@ -28,7 +26,7 @@ const AssessmentCard = ({ details }) => {
   };
 
   return (
-    <Box flex sx={{ padding: 2, backgroundColor: '#FFFFFF', borderRadius: 1, width: '40%', fontSize: 15, justifyContent: 'flex-start' }}>
+    <Box flex sx={{ padding: 2, backgroundColor: '#FFFFFF', borderRadius: 1, width: '40%', fontSize: '1.1rem' }}>
       <Stack spacing={3}>
         <p style={{ textAlign: 'left' }}> Assessment: {details.content.display_name} </p>
         <p style={{ textAlign: 'left' }}> {section.title} </p>

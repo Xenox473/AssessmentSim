@@ -5,8 +5,13 @@ const AnswerButton = ({
   questionId,
   handleClick
 }) => {
+  const style = {
+    width: '50%'    
+  };
+
+  
   return (
-    <Button variant="contained" color="primary" onClick={() => handleClick(questionId, answer.value)}>
+    <Button variant="contained" style={style} color="primary" onClick={() => handleClick(questionId, answer.value)}>
       {answer.title}
     </Button>
   );

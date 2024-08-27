@@ -9,7 +9,7 @@ const Questioner = ({
     return (
       <div>
         <h3>{question.title}</h3>
-        <Stack spacing={2}>
+        <Stack spacing={2} alignItems={'center'}>
         {answers.map((answer, index) => (
           <AnswerButton 
             key={index}
