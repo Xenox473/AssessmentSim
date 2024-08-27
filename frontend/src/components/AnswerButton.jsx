@@ -3,11 +3,10 @@ import { Button } from "@mui/material";
 const AnswerButton = ({ 
   answer,
   questionId,
-  results,
-  setResults
+  handleClick
 }) => {
   return (
-    <Button variant="contained" color="primary" onClick={() => setResults([...results, {"question_id": questionId, "value": answer.value}])}>
+    <Button variant="contained" color="primary" onClick={() => handleClick(questionId, answer.value)}>
       {answer.title}
     </Button>
   );

@@ -1,13 +1,14 @@
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react';
-// import Item from '@mui/material/ListItem';
 import { LinearProgress } from '@mui/material';
+import { Divider } from '@mui/material';
 
-import AnswerButton from './AnswerButton';
+import Questioner from './Questioner';
 
 const AssessmentCard = ({ details }) => {
   const [ results, setResults ] = useState([]);
+  const [ counter, setCounter ] = useState(0);
 
   useEffect(() => {
     console.log(results);
@@ -20,24 +21,24 @@ const AssessmentCard = ({ details }) => {
   const section = details.content.sections[0];
   const questions = section.questions;
   const answers = section.answers;
-  const question = questions[0];
+
+  function handleAnswerClick(questionId, answer) {
+    setResults([...results, {"question_id": questionId, "value": answer}]);
+    setCounter(counter + 1);
+  };
 
   return (
-    <Box flex sx={{ padding: 2, border: '5px dashed grey', width: '40%', fontSize: 15, justifyContent: 'flex-start' }}>
+    <Box flex sx={{ padding: 2, backgroundColor: '#FFFFFF', borderRadius: 1, width: '40%', fontSize: 15, justifyContent: 'flex-start' }}>
       <Stack spacing={3}>
-        <p style={{ textAlign: 'left' }}> {details.content.display_name} </p>
+        <p style={{ textAlign: 'left' }}> Assessment: {details.content.display_name} </p>
         <p style={{ textAlign: 'left' }}> {section.title} </p>
-        <p> {question.title} </p>
-        {answers.map((answer, index) => (
-          <AnswerButton 
-            key={index}
-            answer={answer} 
-            questionId={question.question_id}
-            results={results}
-            setResults={setResults}
-          />
-        ))}
-        <LinearProgress variant="determinate" value={1/8*100} />
+        <Divider textAlign='right' border='1px solid'> {counter + 1} out of {questions.length} </Divider>
+        <Questioner
+          question={questions[counter]}
+          answers={answers}
+          handleClick={handleAnswerClick}
+        />
+        <LinearProgress variant="determinate" value={(counter)/questions.length * 100} />
       </Stack>
     </Box>
   );
