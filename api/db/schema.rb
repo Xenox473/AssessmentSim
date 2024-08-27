@@ -15,32 +15,35 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_26_213956) do
   enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
-    t.integer "value"
+    t.integer "value", null: false
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["value"], name: "unique_value", unique: true
   end
 
   create_table "domain_mappings", force: :cascade do |t|
-    t.integer "domain_id"
-    t.integer "question_id"
+    t.integer "domain_id", null: false
+    t.integer "question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "domains", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.integer "minimum_score"
     t.string "assessment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "unique_name", unique: true
   end
 
   create_table "questions", force: :cascade do |t|
-    t.string "question_id"
+    t.string "question_id", null: false
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "unique_question_id", unique: true
   end
 
   add_foreign_key "domain_mappings", "domains"
