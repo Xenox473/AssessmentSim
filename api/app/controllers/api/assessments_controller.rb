@@ -4,4 +4,8 @@ class Api::AssessmentsController < ApplicationController
     results = AssessmentsService.assess(answers)
     render json: {results: results}
   end
+
+  def data
+    render json: AssessmentsService.fetch_data
+  end
 end
