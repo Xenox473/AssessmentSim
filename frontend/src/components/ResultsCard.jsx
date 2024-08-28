@@ -1,6 +1,6 @@
 import { Box, Stack, Button, CircularProgress } from "@mui/material";
 
-const ResultsCard = (results, setCounter, setResults, setAnswers) => {
+const ResultsCard = ({ results, setCounter, setResults, setAnswers }) => {
   function renderResults() {
     if (results.results) {
       return (
