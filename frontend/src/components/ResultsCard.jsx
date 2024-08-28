@@ -24,6 +24,9 @@ const ResultsCard = ({ answers, resetAssessment }) => {
 
   function renderResults() {
     if (!results) return <p> Assessing... </p>;
+
+    if (results.length === 0) return <p> No results determined </p>;
+
     return <p> Your results: { results.join(", ") } </p>
   }
 
