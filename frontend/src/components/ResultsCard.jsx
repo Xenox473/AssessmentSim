@@ -6,7 +6,7 @@ const ResultsCard = ({ answers, resetAssessment }) => {
   const [results, setResults] = useState();
   
   function fetchResults() {
-    fetch('http://localhost:3002/api/assessments', {
+    fetch('http://localhost:3002/api/assessments/results', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

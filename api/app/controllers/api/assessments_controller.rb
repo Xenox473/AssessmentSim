@@ -15,7 +15,7 @@ class Api::AssessmentsController < ApplicationController
     render json: {results: assessment}
   end
 
-  def details
+  def data
     answers = Answer.all.sort_by(&:value).pluck(:title, :value).map { |title, value| {title: title, value: value} }
     questions = Question.all.pluck(:question_id, :title).map { |question_id, title| {question_id: question_id, title: title} }
     details = {
