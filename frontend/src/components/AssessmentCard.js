@@ -11,7 +11,7 @@ const AssessmentCard = ({ completeAssessment, responses, setResponses }) => {
   const [assessmentData, setAssessmentData] = useState([]);
 
   function fetchAssessmentData() {
-    fetch('/api/assessments/details')
+    fetch('http://localhost:3002/api/assessments/details')
       .then(response => response.json())
       .then(data => setAssessmentData(data))
       .catch(err => console.error(err));
