@@ -1,5 +1,5 @@
 class Api::AssessmentsController < ApplicationController
-  def assess
+  def results
     answers = params[:answers]
 
     domain_scores = Domain.all.map { |domain| [domain, 0] }.to_h
@@ -10,9 +10,9 @@ class Api::AssessmentsController < ApplicationController
       domain_scores[domain] += answer[:value]
     end
 
-    assessment = domain_scores.map { |domain, score| domain.assessment if score >= domain.minimum_score }.compact
+    assessment = domain_scores.map { |domain, score| domain.assessment if score >= domain.minimum_score }.compact.uniq
 
-    render json: { results: assessment}
+    render json: {results: assessment}
   end
 
   def details
