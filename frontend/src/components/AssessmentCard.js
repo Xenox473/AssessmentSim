@@ -1,7 +1,4 @@
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-import { LinearProgress } from '@mui/material';
-
+import { Box, LinearProgress, Stack } from '@mui/material';
 import QuestionWrapper from './QuestionWrapper';
 import { boxStyles } from './boxStyles';
 import { useEffect, useState } from 'react';
@@ -23,7 +20,6 @@ const AssessmentCard = ({ completeAssessment, responses, setResponses }) => {
 
   if (!assessmentData?.content?.sections) return null;
 
-  // Not sure if there would be more sections
   const section = assessmentData.content.sections[0];
   const { questions, answers } = section;
 
