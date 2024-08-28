@@ -1,7 +1,7 @@
 # Assessment Simulator
 
 ### Instuctions for running the code locally
-1. Clone the repo: `git clone https://github.com/Xenox473/AssessmentSim.git`
+1. Clone the repo
 2. `cd AssessmentSim/`
 3. Build and run the `docker-compose.yml` file: `docker-compose up --build`
 4. Once all three services are running, run in a separate terminal: `docker compose run api rails db:create db:migrate db:seed`
