@@ -3,8 +3,8 @@
 ### Instuctions for running the code locally
 1. Clone the repo: `git clone https://github.com/Xenox473/AssessmentSim.git`
 2. `cd AssessmentSim/`
-3. Build and Run the `docker-compose.yml` file: `docker-compose up --build`
-4. Once all three services are running, in a separate terminal, run: `docker compose run api rails db:create db:migrate db:seed`
+3. Build and run the `docker-compose.yml` file: `docker-compose up --build`
+4. Once all three services are running, run in a separate terminal: `docker compose run api rails db:create db:migrate db:seed`
 5. The app should now be available at `http://localhost:3000/`
    
 ### Technologies used: Ruby on Rails, Postgres, React, and Docker
@@ -30,7 +30,7 @@ For your reference, I've created three PRs with more specific comments around th
 
 #### Part 1
 
-The problem described for part 1 was to create an endpoint to return an array of assessments determined from a set of questions and answers sent in as a JSON object. I first got around to setting up the app and database and figuring which data points I'd like to store in the database and how. Due to the reasons mentioned earlier, I decided to store all the given data into the following tables:
+The problem described for part 1 was to create an endpoint to return an array of assessments determined from a set of questions and answers sent in as a JSON object. I first got around to setting up the app and database and figuring out which data points I'd like to store in the database and how. Due to the reasons mentioned earlier, I decided to store all the given data into the following tables:
 1. `questions`: Holds all the questions with attributes `question_id` and `title`.
 2. `answers`: Holds all the possible answer options for the questions with attributes `title` and `value`. (After completing the project, I've realized that answers might be too ambiguous a name and maybe something like `potential_answers` may provide better context).
 
@@ -47,11 +47,11 @@ This part of the problem required creating a questionnaire that asked the users 
 
 ![Frontend Design](readme_media/frontend_design.png) 
 
-Not the best drawing, but it gets the idea across! From then on I set about creating the view for the first question. I reached my first reusable component with the answers button. Each button was tasked with the same job of sppending the `question_id` and `answer.value` to a state named `responses`. Once I had a functional first step, I created a `QuestionWrapper` component that accepted a question and a list of possible answers. Then, I iterated through the list of questions with an `ActiveQuestionIndex`that incremented whenever an answer was picked. For the progress bar, I imported the `<LinearProgressBar>` component from MUI and assigned the value to be `(ActiveQuestionIndex / Questions.length) * 100`. I was torn about setting the progress bar to 0 or 1/8 on the first step, but in the end I decided to stick with the former as it felt more intuitive - you'd want the bar to move after you've taken action, not before (I'd think). Once all the questions were asked `(ActiveQuestionIndex === Questions.length)`, I bundle up the `reponses` state and send it to the backend. I did add a welcome card at the start of the assessment and a results card at the end which awaits the response from the backend and displays the assessments. It also provides the option to take you back to the welcome screen, providing a seamless user experience.
+Not the best drawing, but it gets the idea across! From then on I set about creating the view for the first question. I reached my first reusable component with the answers button. Each button was tasked with the same job of sending the `question_id` and `answer.value` to a state value named `responses`. Once I had a functional first step, I created a `QuestionWrapper` component that accepted a question and a list of possible answers. Then, I iterated through the list of questions with an `ActiveQuestionIndex`that incremented whenever an answer was picked. For the progress bar, I imported the `<LinearProgressBar>` component from MUI and assigned the value to be `(activeQuestionIndex / Questions.length) * 100`. I was torn about setting the progress bar to 0 or 1/8 on the first step, but in the end I decided to stick with the former as it felt more intuitive - you'd want the bar to move after you've taken action, not before (I'd think). Once all the questions were asked `(activeQuestionIndex === questions.length)`, the `reponses` state value is sent to the backend. I did add a welcome card at the start of the assessment and a results card at the end which awaits the response from the backend and displays the assessments. It also provides the option to take you back to the welcome screen, providing a seamless user experience.
 
 ![UX_flow](readme_media/UX_flow.gif)
 
-Once I had things running smoothly, I spent some time stylizing and refactoring components and variables for improved readability. 
+Once I had things running smoothly, I spent some time styling and refactoring components and variables for improved readability. 
 
 ### Describe how you would deploy this as a true production app on the platform of your choice:
   Due to the fact that everything is already containerized through Docker, it should be fairly straight forward to run on a virtual cloud machine such as an EC2 instance. I had tried this approach but due to cost and time reasons, I haven't been able to set one up yet. 
