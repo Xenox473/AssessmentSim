@@ -1,13 +1,16 @@
-// import './App.css';
 import { createTheme, ThemeProvider } from '@mui/material';
 import AssessmentWrapper from './AssessmentWrapper';
 
 const theme = createTheme({
-  // palette: {
-  //   primary: {
-  //     main: '#42a5f5',
-  //   }
-  // },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none'
+        }
+      }
+    }
+  }
 });
 
 const appStyles = {

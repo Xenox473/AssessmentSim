@@ -1,33 +1,39 @@
-import { Box, Stack, Button, CircularProgress } from "@mui/material";
+import { Box, Stack, Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import { boxStyles } from "./boxStyles";
 
-const ResultsCard = ({ results, setCounter, setResults, setAnswers }) => {
-  function renderResults() {
-    if (results.results) {
-      return (
-        <p> Your results: { results.results.join(", ") } </p>
-      );
-    } else {
-      return (
-        <>
-          <CircularProgress />
-        </>
-      );
-    } 
+const ResultsCard = ({ answers, resetAssessment }) => {
+  const [results, setResults] = useState();
+  
+  function fetchResults() {
+    fetch('http://localhost:3002/api/assessments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({answers: answers})
+    })
+    .then(response => response.json())
+    .then(data => setResults(data.results))
+    .catch(err => console.error(err));
   }
 
-  function reset() {
-    setCounter(0);
-    setResults([]);
-    setAnswers([]);
+  useEffect(() => {
+    fetchResults();
+  }, []);
+
+  function renderResults() {
+    if (!results) return <p> Assessing... </p>;
+    return <p> Your results: { results.join(", ") } </p>
   }
 
   return (
-    <Box flex sx={{ padding: 2, backgroundColor: '#FFFFFF', borderRadius: 1, width: '40%', fontSize: '1.1rem' }}>
+    <Box sx={boxStyles}>
       <Stack spacing={3}>
-       <h1> Assessment Results </h1>
+       <h2> Assessment Results </h2>
         { renderResults() }
-        <Button variant="contained" color="primary" onClick={() => reset()}>
-          Restart
+        <Button variant="contained" color="primary" onClick={resetAssessment}>
+          Restart Assessment
         </Button>
       </Stack>
     </Box>

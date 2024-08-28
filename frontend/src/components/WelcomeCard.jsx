@@ -1,11 +1,12 @@
 import { Box, Stack, Button } from "@mui/material";
+import { boxStyles } from "./boxStyles";
 
-const WelcomeCard = ({ setCounter }) => (
-  <Box flex sx={{ padding: 2, backgroundColor: '#FFFFFF', borderRadius: 1, width: '40%', fontSize: '1.1rem' }}>
+const WelcomeCard = ({ beginAssessment }) => (
+  <Box sx={boxStyles}>
     <Stack spacing={3}>
-      <h1> Welcome to the assessment! </h1>
-      <p> Click the button below to begin. </p>
-      <Button variant="contained" color="primary" onClick={() => setCounter(0)}>
+      <h2>Welcome</h2>
+      <p>Click the button below to begin the assignment</p>
+      <Button variant="contained" color="primary" onClick={beginAssessment}>
         Start
       </Button>
     </Stack>

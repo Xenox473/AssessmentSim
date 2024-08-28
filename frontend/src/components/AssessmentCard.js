@@ -1,42 +1,66 @@
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import { useState, useEffect } from 'react';
 import { LinearProgress } from '@mui/material';
-import { Divider } from '@mui/material';
 
-import Questioner from './Questioner';
+import QuestionWrapper from './QuestionWrapper';
+import { boxStyles } from './boxStyles';
+import { useEffect, useState } from 'react';
 
-const AssessmentCard = ({ details, counter, setCounter, results, setResults }) => {
+const AssessmentCard = ({ completeAssessment, responses, setResponses }) => {
+  const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
+  const [assessmentData, setAssessmentData] = useState([]);
 
-  useEffect(() => {
-    console.log(results);
-  }, [results]);
-
-  if (details.length === 0) {
-    return <p> Loading... </p>;
+  function fetchAssessmentData() {
+    fetch('/api/assessments/details')
+      .then(response => response.json())
+      .then(data => setAssessmentData(data))
+      .catch(err => console.error(err));
   }
 
-  const section = details.content.sections[0];
-  const questions = section.questions;
-  const answers = section.answers;
+  useEffect(() => {
+    fetchAssessmentData();
+  }, []);
+
+  if (!assessmentData?.content?.sections) return null;
+
+  // Not sure if there would be more sections
+  const section = assessmentData.content.sections[0];
+  const { questions, answers } = section;
 
   function handleAnswerClick(questionId, answer) {
-    setResults([...results, {"question_id": questionId, "value": answer}]);
-    setCounter(counter + 1);
+    setResponses([
+      ...responses,
+      {
+        question_id: questionId,
+        value: answer
+      }
+    ]);
+
+    if (activeQuestionIndex === questions.length - 1) {
+      completeAssessment();
+    } else {
+      setActiveQuestionIndex(activeQuestionIndex + 1);
+    }
   };
 
   return (
-    <Box flex sx={{ padding: 2, backgroundColor: '#FFFFFF', borderRadius: 1, width: '40%', fontSize: '1.1rem' }}>
-      <Stack spacing={3} justifyContent={'space-evenly'}>
-        <p style={{ textAlign: 'left' }}> Assessment: {details.content.display_name} </p>
+    <Box sx={boxStyles}>
+      <Stack spacing={3} justifyContent="space-evenly">
+        <h2 style={{ textAlign: 'left' }}> Assessment: {assessmentData.content.display_name} </h2>
         <p style={{ textAlign: 'left' }}> {section.title} </p>
-        <Divider textAlign='right' border='1px solid'> {counter + 1} out of {questions.length} </Divider>
-        <Questioner
-          question={questions[counter]}
+        <QuestionWrapper
+          question={questions[activeQuestionIndex]}
           answers={answers}
           handleClick={handleAnswerClick}
         />
-        <LinearProgress variant="determinate" value={(counter)/questions.length * 100} sx={{height: '10px', borderRadius: 3}}/>
+        <LinearProgress
+          variant="determinate"
+          value={(activeQuestionIndex) / questions.length * 100}
+          sx={{height: '5px', borderRadius: 3}}
+        />
+        <div style={{ textAlign: 'right' }}>
+          Question {activeQuestionIndex + 1} out of {questions.length}
+        </div>
       </Stack>
     </Box>
   );
