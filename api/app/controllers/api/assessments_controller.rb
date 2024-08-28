@@ -1,18 +1,8 @@
 class Api::AssessmentsController < ApplicationController
   def results
     answers = params[:answers]
-
-    domain_scores = Domain.all.map { |domain| [domain, 0] }.to_h
-
-    answers.each do |answer|
-      question = Question.find_by(question_id: answer[:question_id])
-      domain = DomainMapping.find_by(question: question).domain
-      domain_scores[domain] += answer[:value]
-    end
-
-    assessment = domain_scores.map { |domain, score| domain.assessment if score >= domain.minimum_score }.compact.uniq
-
-    render json: {results: assessment}
+    results = AssessmentsService.assess(answers)
+    render json: {results: results}
   end
 
   def data
