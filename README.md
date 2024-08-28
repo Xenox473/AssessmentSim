@@ -70,6 +70,7 @@ Once I had things running smoothly, I spent some time styling and refactoring co
 Some trade-offs I made for the sake of time included:
 1. Not paying too much attention to the mobile layout of the application. 
 2. All of the frontend requests to the backend reference `localhost:3000/api/` in the url. I'd want to fix that by adding some sort of a proxy so that the requests can be changed to `/api/`. 
+3. Not adding tests
 
 ### Link to other code you're particularly proud of:
 - [Album Review Summarizer](https://github.com/Xenox473/review_summarizer): I used transformer models and embeddings, alongside clustering and graph based algorithms for Retrieval Augmented Generation (RAG) to generate holistic summaries of album reviews from the site https://1001albumsgenerator.com.
